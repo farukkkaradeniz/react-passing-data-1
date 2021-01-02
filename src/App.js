@@ -98,7 +98,11 @@ const movies = {
 };
 
 class App extends Component {
+
   render() {
+    const userList = Object.values(users);
+    const profileList = Object.values(profiles);
+    const movieList = Object.values(movies);
     return (
       <div>
         <header className="App-header">
@@ -106,6 +110,18 @@ class App extends Component {
           <h1 className="App-title">ReactND - Coding Practice</h1>
         </header>
         <h2>Favorite Movies</h2>
+        <ul>
+          {userList.map(user => {
+            var favMovieName = 'NONE';
+            const movieId = profileList.filter(profile => profile.userID == user.id)[0].favoriteMovieID;
+            const movieName = movieList.filter(movie => movie.id == movieId)[0].name;
+            return (
+              <li key={user.id}>
+                <p>{user.name}'s favorite movie is {movieName}.</p>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     );
   }
